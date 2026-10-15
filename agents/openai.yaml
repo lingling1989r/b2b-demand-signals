@@ -1,0 +1,4 @@
+interface:
+  display_name: "B端需求信号获客"
+  short_description: "优先发现近一周需求，按时效与匹配度分级，生成账号表和问题优先回复"
+  default_prompt: "使用$b2b-demand-signals，优先查最近7天公开需求信号，按ABC分级，整理帖子、账号资料和针对性回复。"
