@@ -44,6 +44,17 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(self.classify(published_at='2026-10-08'), ('B', 'date_pending'))
         self.assertEqual(self.classify(published_at='2026-10-14')[0], 'A')
 
+    def test_fastlane_requires_exact_recent_a(self):
+        base = dict(lead_id='fast', published_at='2026-10-15T14:00:00+08:00',
+                    demand_strength='explicit', service_fit='direct')
+        self.assertTrue(grader.grade(base, self.now, self.zone)['fastlane'])
+        for patch in [dict(published_at='2026-10-15T13:59:59+08:00'),
+                      dict(published_at='2026-10-15'), dict(published_at=None),
+                      dict(closed=True), dict(service_fit='indirect'),
+                      dict(published_at='2026-10-16T14:00:00+08:00')]:
+            with self.subTest(patch=patch):
+                self.assertFalse(grader.grade(dict(base, **patch), self.now, self.zone)['fastlane'])
+
     def test_timezone_equivalence(self):
         self.assertEqual(self.classify(published_at='2026-10-14T02:00:00Z'), self.classify())
 

@@ -5,6 +5,7 @@
   "window_end": "2026-10-15T18:00:00+08:00",
   "window_days": 7,
   "archive_days": 30,
+  "fastlane_hours": 4,
   "rows": [
     {
       "lead_id": "demo-01",
@@ -19,6 +20,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": 1.25,
+      "age_hours": 30.0,
+      "fastlane": false,
       "grade": "A",
       "bucket": "recent_workbench",
       "grade_reason": "窗口内明确具体需求，直接适配且未关闭"
@@ -36,6 +39,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": 2.3333,
+      "age_hours": 56.0,
+      "fastlane": false,
       "grade": "A",
       "bucket": "recent_workbench",
       "grade_reason": "窗口内明确具体需求，直接适配且未关闭"
@@ -53,6 +58,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": 3.375,
+      "age_hours": 81.0,
+      "fastlane": false,
       "grade": "B",
       "bucket": "recent_workbench",
       "grade_reason": "窗口内一般求助或间接适配，先确认"
@@ -70,6 +77,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": 14.2917,
+      "age_hours": 343.0,
+      "fastlane": false,
       "grade": "B",
       "bucket": "historical_candidates",
       "grade_reason": "超过近期窗口，降级并单列历史候选"
@@ -87,6 +96,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": null,
+      "age_hours": null,
+      "fastlane": false,
       "grade": "B",
       "bucket": "date_pending",
       "grade_reason": "无可核实的信号日期，不宣称近期"
@@ -104,6 +115,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": 75.2917,
+      "age_hours": 1807.0,
+      "fastlane": false,
       "grade": "C",
       "bucket": "archive",
       "grade_reason": "超过历史截止；旧信号归档"
@@ -121,6 +134,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": null,
+      "age_hours": null,
+      "fastlane": false,
       "grade": "C",
       "bucket": "excluded",
       "grade_reason": "需求已关闭或账号注销；排除联系"
@@ -138,6 +153,8 @@
       "account_inactive": false,
       "as_of": "2026-10-15T18:00:00+08:00",
       "age_days": null,
+      "age_hours": null,
+      "fastlane": false,
       "grade": "C",
       "bucket": "excluded",
       "grade_reason": "噪声或核心需求不适配"

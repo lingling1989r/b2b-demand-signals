@@ -25,3 +25,9 @@ JSON数组，lead_id唯一；以下仅虚构离线样例：
 ```
 
 demand_strength只用explicit/general/noise；service_fit只用direct/indirect/none。必须先读原文完成标签，缺标签直接报错，不自动凑A级。published_at缺省表示未知；日期字符串按--timezone解释。完整时间须有时区。
+
+## 快线与阶段追踪扩展
+
+Reddit任务按[快线参考](reddit-fastlane.md)增加四页底稿。字段增加query_id、record_id、duplicate_of、stage、stage_decision、stage_reason、raw_response_path、raw_record_locator、community、coverage_truncated、budget_quote、urgency_quote、replacement_quote、identity_match_evidence、fastlane、age_hours、first_seen_at、positive_reply_at、draft_ready_at、sent_at、response_due_at。每个阶段保留未通过与待核记录；公开演示文件继续只用虚构数据，实际原始底稿留在私有交付中。
+
+脚本自动计算fastlane：A级、精确带时区时间且不超过4小时；可用--fastlane-hours调整。该字段只表示时效优先，不生成预算/身份判断或自动发送。

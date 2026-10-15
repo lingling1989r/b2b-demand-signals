@@ -19,7 +19,7 @@ def bounds(value, zone):
     return instant, instant
 
 
-def grade(row, as_of, zone, window_days=7, archive_days=30):
+def grade(row, as_of, zone, window_days=7, archive_days=30, fastlane_hours=4):
     if row.get('demand_strength') not in {'explicit', 'general', 'noise'}:
         raise ValueError('demand_strength must be explicit/general/noise')
     if row.get('service_fit') not in {'direct', 'indirect', 'none'}:
@@ -27,8 +27,10 @@ def grade(row, as_of, zone, window_days=7, archive_days=30):
     for flag in ['closed', 'account_inactive']:
         if flag in row and not isinstance(row[flag], bool):
             raise ValueError(flag + ' must be boolean')
-    result = dict(row, as_of=as_of.isoformat(), age_days=None)
+    result = dict(row, as_of=as_of.isoformat(), age_days=None, age_hours=None, fastlane=False)
     def emit(g, bucket, reason):
+        if g == 'A' and result['age_hours'] is not None:
+            result['fastlane'] = result['age_hours'] <= fastlane_hours
         return dict(result, grade=g, bucket=bucket, grade_reason=reason)
     if row.get('closed') or row.get('account_inactive'):
         return emit('C', 'excluded', '需求已关闭或账号注销；排除联系')
@@ -41,6 +43,8 @@ def grade(row, as_of, zone, window_days=7, archive_days=30):
     if span is None:
         return emit('B', 'date_pending', '无可核实的信号日期，不宣称近期')
     earliest, latest = span
+    if earliest == latest:
+        result['age_hours'] = (as_of - earliest).total_seconds() / 3600
     if earliest > as_of:
         return emit('C', 'date_pending', '日期晚于执行时刻；待核')
     latest = min(latest, as_of)
@@ -67,9 +71,12 @@ def main():
     parser.add_argument('--timezone', default='Asia/Shanghai')
     parser.add_argument('--window-days', type=int, default=7)
     parser.add_argument('--archive-days', type=int)
+    parser.add_argument('--fastlane-hours', type=float, default=4)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     archive_days = args.archive_days if args.archive_days is not None else max(30, 4 * args.window_days)
+    if not 0 < args.fastlane_hours < float('inf'):
+        parser.error('fastlane-hours must be finite and positive')
     if args.window_days <= 0 or archive_days < args.window_days:
         parser.error('window must be positive; archive must be >= window')
     try:
@@ -83,7 +90,7 @@ def main():
         ids = [r.get('lead_id') for r in rows]
         if any(not i for i in ids) or len(set(ids)) != len(ids):
             raise ValueError('lead_id must be present and unique')
-        ranked = [grade(r, as_of, zone, args.window_days, archive_days) for r in rows]
+        ranked = [grade(r, as_of, zone, args.window_days, archive_days, args.fastlane_hours) for r in rows]
     except (ValueError, TypeError, KeyError) as exc:
         parser.error(str(exc))
     ranked.sort(key=lambda r: (r['grade'], r['age_days'] is None,
@@ -91,7 +98,7 @@ def main():
     result = {'as_of': as_of.isoformat(), 'timezone': args.timezone,
               'window_start': (as_of - dt.timedelta(days=args.window_days)).isoformat(),
               'window_end': as_of.isoformat(), 'window_days': args.window_days,
-              'archive_days': archive_days, 'rows': ranked}
+              'archive_days': archive_days, 'fastlane_hours': args.fastlane_hours, 'rows': ranked}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2))
     print(json.dumps({'rows': len(ranked), 'grades': {g: sum(r['grade'] == g for r in ranked)
