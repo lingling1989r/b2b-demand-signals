@@ -8,6 +8,32 @@
 
 如果这套方法对你有用，欢迎点一下右上角的 **⭐ Star**，方便以后回来更新。也欢迎带着具体场景提Issue：目标平台、遇到的问题、希望拿到的字段，会比一句“支持更多功能”更容易推进。Star不是使用条件。
 
+## 为什么做这个skill
+
+最开始，我们想给数据研究工具找一些真正有需要的人：有人在找KOL联系方式，有人需要1688的信息，也有人想拿到商品评论或社媒数据。很容易搜出一大堆账号，但看完才发现，不少人在卖服务、分享教程，或者那条求助已经是很久以前的了。
+
+所以我们把问题改成了：**这个人最近遇到了什么，我们能不能先帮他解决一点？** 后来读到[James Shields分享的Reddit故事](https://x.com/i/status/2042324679759978780)：他转述有人每天看细分社区，搜求推荐和替代方案，趁需求刚出现时回应。让我们想留下来的，是“需求出现的时间”，以及首句应该回应原帖，而不是先介绍自己。
+
+原帖提到月入约5.1万美元。这是作者转述，收款和归因没有独立验证，我们也没有靠这个skill验证这份收入。它是做这个流程的一个启发。
+
+第一次拿这套流程查五类需求时，我们保留了269条原始命中，按平台与ID去重后255条，选出18条候选，其中9条A、9条B，只有1条落在4小时内。也有不少“不好看但有用”的结果：1688“拉数据”其实可能在说店铺运营；评论采集卡住不一定是电商评论；几个不同账号的求达人帖，竟然用了很相似的模板。**18条是研究候选，不是18个客户，更没有18笔成交。**
+
+这也是为什么我们坚持把原话、时间、排除项和筛选底稿一起交付。你应该能看清楚它为什么留下一个人，也能看清楚它为什么放弃另一个人。下面的公开Excel仍用虚构数据演示，实际账号与研究底稿不公开上传。
+
+## 多语言：先找到当地人真正怎么问
+
+支持中文、英文、日语、韩语、法语和德语的研究流程。默认先跑中英；目标是其他市场时按预算扩展对应语言。每条保留**原文＋中文释义＋原帖语言的回复草稿**，查询覆盖也按语言分开记录。
+
+例如英语常搜“looking for / alternative to”，日语可以从“探しています / おすすめ”入手，韩语用“추천해주세요 / 찾고 있습니다”，法语用“je cherche / alternative à”，德语用“suche / Alternative zu”。这些是可调整的检索词，不是全平台通用语法。规则详见[多语言参考](references/multilingual.md)。
+
+```text
+使用 b2b-demand-signals，按英语、日语、韩语、法语、德语分别查
+最近7天求KOL工具、1688数据、商品评论或社媒数据的本人需求。
+先做各语种最小查询，再扩展有效的方向；4小时内A级优先。
+原文、中文释义和原帖语言回复分列，逐阶段底稿打包Excel。
+按语种报告未查、失败与覆盖不足。只拟稿，不发送。
+```
+
 ## 先看最终表格
 
 [下载Excel示例：近期需求与回复工作台](examples/b2b-demand-signals-demo.xlsx?raw=1)
@@ -139,3 +165,5 @@ python3 -m unittest discover -s tests -v
 ### English summary
 
 Research recent public B2B demand signals, verify sources and account context, apply a seven-day freshness window and A/B/C priorities, and draft problem-first replies. Live research uses [ClaudeBaby](https://claudebaby.cn); the included Python grader works offline. The Excel demo is entirely synthetic. No messages are sent automatically. Star the repository if the workflow helps you, and contribute concrete, anonymized examples through Issues.
+
+WorkBuddy上架包按官方字段单独生成，源码与Codex安装入口保持一致；发布审核状态以开放平台实际返回为准。
