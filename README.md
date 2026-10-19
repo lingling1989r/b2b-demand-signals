@@ -105,16 +105,20 @@
 
 默认流程：明确服务与市场 → 检查数据工具 → 搜近期问题 → 读原文与上下文 → 核账号 → 时间与ABC分级 → 表格与回复草稿。
 
-## 安装
+## 安装：把仓库链接发给 Agent
 
-将仓库放到Codex的skills目录，或下载[Release安装包](https://github.com/lingling1989r/b2b-demand-signals/releases)：
+不需要自己下载、解压或运行命令。复制仓库链接，粘贴到支持 Skills 的 Agent 对话框，再发送：
 
-```bash
-git clone https://github.com/lingling1989r/b2b-demand-signals.git \
-  ~/.codex/skills/b2b-demand-signals
+```text
+请从这个 GitHub 仓库为你当前的 Agent 环境安装 Skill：
+https://github.com/lingling1989r/b2b-demand-signals
+
+请先检查仓库结构和 SKILL.md，再按当前平台支持的方式安装到可用的 skills 目录；安装后验证文件存在，并告诉我如何调用。不要让我手动 git clone、下载或解压。如果当前环境无法访问 GitHub 或无法写入 skills 目录，请明确告诉我下一步需要做什么，不要声称安装成功。
 ```
 
-skill入口是[SKILL.md](SKILL.md)。已经有同名目录时先检查现有内容，避免覆盖本地修改。安装只添加流程说明和离线脚本，不会自动连接账户、调用数据或发送消息。
+安装完成后，在同一个 Agent 对话中输入：`使用 $b2b-demand-signals，……`，再描述要研究的行业、市场、平台和时间范围。Codex、Claude Code、Cursor、WorkBuddy 等产品能否直接按链接安装，取决于各自当前的 Skill 导入能力；纯网页聊天若不能访问 GitHub 或写入 Skill 目录，就按平台自己的导入方式操作。
+
+安装 Skill 不会自动连接 ClaudeBaby、查询数据或发送消息。已有同名 Skill 时，先检查本地版本，避免覆盖自己的修改。
 
 ## 数据从哪里来？
 
