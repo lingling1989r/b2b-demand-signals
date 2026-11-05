@@ -35,3 +35,9 @@ Reddit任务按[快线参考](reddit-fastlane.md)增加四页底稿。字段增�
 ## 多语言字段
 
 增加source_language、query_language、reply_language、translation_zh、translation_uncertainty、target_market、market_evidence。原文与译文分列，查询覆盖按语种拆开统计；语言不自动推断国家，外币预算保留原币种。
+
+## URL 发现与主页池字段
+
+使用[URL 发现与竞品池](url-discovery-and-pools.md)时，增加 discovery_method（用户/搜索/池内）、discovery_query、search_engine、discovered_at、discovery_url、search_snippet、pool_id、pool_role、identity_match_evidence、verification_status、verification_tool、verified_at、verification_error、coverage_truncated。摘要与已核验 raw_text 分列；失败候选不生成采购等级，保留在待核区。
+
+主页池底稿记录来源、归属/市场证据、纳入理由、最近采集时间及可用游标。查询与覆盖页分别记录候选 URL 数、去重数、尝试/成功读取数、实际读取帖子数、已核验需求数、失败与未覆盖范围，避免把搜索命中数当客户数。
